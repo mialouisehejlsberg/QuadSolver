@@ -1,0 +1,2 @@
+# QuadSolver
+solving quadratics
