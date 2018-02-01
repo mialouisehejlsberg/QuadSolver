@@ -6,9 +6,10 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="quadScript.js"></script>
   <!-- styles to override bootstrap settings or add our own styles -->
   <style>
     /* Set gray background color and 100% height */
@@ -23,24 +24,39 @@
       }
       .row.content {height:auto;} 
     }
+    body{
+      background-color: lightpink;
+    }
     .coeff {
-      width: 80%;
-      background-color: pink;
-      padding: 10px;
+      width: 100%;
+      background-color: lightyellow;
+      padding: 20px;
       border-radius: 20px;
-      color: black;
+    }
+     .myResults {
+      width: 100%;
+    }
+    .btn{
+      border-color:black;
+      border-width: 1.5px;
+      color:white;
+      background-color:lightblue;
+    }
+    #submitbutton{
+      margin-top: 10px;
     }
     canvas {
+      width: 100%;
       display: block;
       border-style: dotted;
       border-width: 5px;
-      background-color: lightyellow;
-      margin-top: 5px;
+      background-color: white;
+      margin-top: 10px;
     }
   </style>
 
   </head>
-  <body>
+  <body onload="init()">
    <!--  Nav bar that is responsive (container-fluid with data-toggle at collapse) -->
    <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -50,12 +66,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="#">Math Solutions</a>
+        <a class="navbar-brand" href="#">Mia's Solutions</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Linear Grapher</a></li>
-          <li><a href="#2">Quadratic Grapher</a></li>
+          <li class="active"><a href="#">Quadratic Grapher</a></li>
+          <li><a href="#2">Linear Grapher</a></li>
           <li><a href="#3">Cubic Grapher</a></li>
         </ul>
       </div>
@@ -67,14 +83,24 @@
     <div class="row content">
       <div class="col-sm-2 sidenav">
         <div class="coeff">
-          <p class="formInfo">Coefficients go here<br>
+          <p class="formInfo">Coefficients go here :<br>
 
-            a = <input size="5" type="text" id="linA" value="1"> <br>
+            a = <input size="5" type="text" id="quadA" value="1"> <br>
             b = <input size="5" type="text" id="linB" value="0"> <br>
             c = <input size="5" type="text" id="constant" value="0"> <br>
-            <button class="btn" onclick="">Submit Values</button>
+
+            <button class="btn" onclick="QF()" id="submitbutton">Submit Values</button>
+            <button class="btn" id="+">+</button>
+            <button class="btn" id="-">-</button>
           </p>
-        </div> 
+          <div class="solutions">
+        <p id="solution1">X intercept is at</p>
+        <p id="solution2">X intercept is at</p>
+        <p id="y-int">Y intercept is at</p>
+        <p id="corres.point">Corresponding point is at</p>
+        <p id="vertex">Vertex is at</p>
+      </div>
+        </div>
       </div>
       <div class="col-sm-8 text-left"> 
         <canvas class="canvasGrids" id="mycanvas"></canvas>
