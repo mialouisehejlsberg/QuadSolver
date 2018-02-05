@@ -90,18 +90,19 @@
             c = <input size="5" type="text" id="constant" value="0"> <br>
 
             <button class="btn" onclick="QF()" id="submitbutton">Submit Values</button>
-            <button class="btn" id="+">+</button>
-            <button class="btn" id="-">-</button>
           </p>
           <div class="solutions">
         <p id="solution1">X intercept is at</p>
         <p id="solution2">X intercept is at</p>
         <p id="y-int">Y intercept is at</p>
-        <p id="corres.point">Corresponding point is at</p>
+        <p id="corres-point">Corresponding point is at</p>
         <p id="vertex">Vertex is at</p>
+        <p id="sim-line">Symmetry line is at</p>
+        <span class="glyphicon glyphicon-plus-sign" id="zoom-in" onclick="zoomOut()"></span>
+        <span class="glyphicon glyphicon-minus-sign" id= "zoom-out" onclick="zoom()"></span>
       </div>
         </div>
-      </div>
+      </div> 
       <div class="col-sm-8 text-left"> 
         <canvas class="canvasGrids" id="mycanvas"></canvas>
       </div>
