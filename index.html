@@ -1,17 +1,17 @@
 <!--   Polynomial graphing application for soft dev class. Updated 2017.
   Using bootstrap 3, we will try to keep responsive features to be used on mobile device -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="quadScript.js"></script>
-  <!-- styles to override bootstrap settings or add our own styles -->
-  <style>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="quadScript.js"></script>
+    <!-- styles to override bootstrap settings or add our own styles -->
+    <style>
     /* Set gray background color and 100% height */
     .sidenav {
       height: 100%;
@@ -32,15 +32,21 @@
       background-color: lightyellow;
       padding: 20px;
       border-radius: 20px;
+      margin-top: 10px;
+      text-align: center;
     }
-     .myResults {
+    .myResults {
       width: 100%;
     }
     .btn{
       border-color:black;
-      border-width: 1.5px;
-      color:white;
+      border-width: 1px;
+      color:black;
       background-color:lightblue;
+
+    }
+    .btn:hover {
+      color: white;
     }
     #submitbutton{
       margin-top: 10px;
@@ -55,58 +61,61 @@
     }
   </style>
 
-  </head>
-  <body onload="init()">
-   <!--  Nav bar that is responsive (container-fluid with data-toggle at collapse) -->
-   <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand" href="#">Mia's Solutions</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Quadratic Grapher</a></li>
-          <li><a href="#2">Linear Grapher</a></li>
-          <li><a href="#3">Cubic Grapher</a></li>
-        </ul>
-      </div>
+</head>
+<body onload="init()">
+ <!--  Nav bar that is responsive (container-fluid with data-toggle at collapse) -->
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Mia's Solutions</a>
     </div>
-  </nav>
-
-  <!--    our main body of divs that are responsive (go from in-line to block when screen is small) -->
-  <div class="container-fluid">    
-    <div class="row content">
-      <div class="col-sm-2 sidenav">
-        <div class="coeff">
-          <p class="formInfo">Coefficients go here :<br>
-
-            a = <input size="5" type="text" id="quadA" value="1"> <br>
-            b = <input size="5" type="text" id="linB" value="0"> <br>
-            c = <input size="5" type="text" id="constant" value="0"> <br>
-
-            <button class="btn" onclick="QF()" id="submitbutton">Submit Values</button>
-          </p>
-          <div class="solutions">
-        <p id="solution1">X intercept is at</p>
-        <p id="solution2">X intercept is at</p>
-        <p id="y-int">Y intercept is at</p>
-        <p id="corres-point">Corresponding point is at</p>
-        <p id="vertex">Vertex is at</p>
-        <p id="sim-line">Symmetry line is at</p>
-        <span class="glyphicon glyphicon-plus-sign" id="zoom-in" onclick="zoomOut()"></span>
-        <span class="glyphicon glyphicon-minus-sign" id= "zoom-out" onclick="zoom()"></span>
-      </div>
-        </div>
-      </div> 
-      <div class="col-sm-8 text-left"> 
-        <canvas class="canvasGrids" id="mycanvas"></canvas>
-      </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Quadratic Grapher</a></li>
+        <li><a href="#2">Linear Grapher</a></li>
+        <li><a href="#3">Cubic Grapher</a></li>
+      </ul>
     </div>
   </div>
-  </body>
+</nav>
+
+<!--    our main body of divs that are responsive (go from in-line to block when screen is small) -->
+<div class="container-fluid">    
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <div class="coeff">
+        <p class="formInfo">Coefficients go here :<br>
+
+          a = <input size="5" type="text" id="quadA" value="1"> <br>
+          b = <input size="5" type="text" id="linB" value="2"> <br>
+          c = <input size="5" type="text" id="constant" value="-2"> <br>
+
+          <button class="btn" onclick="QF()" id="submitbutton">Submit Values</button>
+        </p>
+        </div>
+          <div class="coeff sidenav">
+          <p id="solution1">X intercept is at</p>
+          <p id="solution2">X intercept is at</p>
+          <p id="y-int">Y intercept is at</p>
+          <p id="corres-point">Corresponding point is at</p>
+          <p id="vertex">Vertex is at</p>
+          <p id="sim-line">Symmetry line is at</p>
+          </div>
+      </div>
+      <div class="coeff sidenav">
+        <span class="glyphicon glyphicon-zoom-in btn" id="zoom" onclick="zoom()"></span>
+        <span class="glyphicon glyphicon-zoom-out btn" id="zoomOut" onclick="zoomOut()"></span>
+      </div>
+    </div> 
+    <div class="col-sm-8 text-left"> 
+      <canvas class="canvasGrids" id="mycanvas"></canvas>
+    </div>
+  </div>
+</div>
+</body>
 </html>
