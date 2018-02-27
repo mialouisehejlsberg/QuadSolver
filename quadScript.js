@@ -7,6 +7,10 @@ function init() {
   w = canvas.width = 600;
   h = canvas.height = 400;
   console.log('canvas is loaded into context',w);
+  canvasOffset = canvas.getBoundingClientRect();
+  offsetX = Math.round(canvasOffset.left),
+  offsetY = Math.round(canvasOffset.top); 
+  canvas.addEventListener("mousemove", doMouseMove, false);
   graphpaper();
 }  // close init
 
@@ -15,15 +19,22 @@ function QF() {
   a = $("#quadA").val();
   b = $("#linB").val();
   c = $("#constant").val();
-  x1=(-b+Math.sqrt(b**2-4*a*c))/(2*a)
-  x1=Math.round(x1 * 100) / 100;
-  x2=(-b-Math.sqrt(b**2-4*a*c))/(2*a)
-  x2=Math.round(x2 * 100) / 100;
+  d=b**2 - 4*a*c;
+  if (d<0){
+    $("#solution1").text("No x-intercepts");
+    $("#solution2").text("");
+  }
+  else{
+ 
+    x1=(-b+Math.sqrt(b**2-4*a*c))/(2*a)
+    x1=Math.round(x1 * 100) / 100;
+    x2=(-b-Math.sqrt(b**2-4*a*c))/(2*a)
+    x2=Math.round(x2 * 100) / 100;
+    $("#solution1").text("X intercept is at "+x1);
+    $("#solution2").text("X intercept is at "+x2);
+  }
 
-  $("#solution1").text("X intercept is at "+x1);
-  $("#solution2").text("X intercept is at "+x2);
-  console.log(a,b,c);
-  graphQuad();
+  graphQuad()
   results();
   context.beginPath();
   context.arc(w/2+x1*k, h/2, 5, 0, 6.28);
@@ -35,6 +46,7 @@ function QF() {
 
 function results() {
   // finding vertext and displaying symline and yint results
+  if(a!=0){
   vX = -(b*1)/(2*a);
   vY = a*Math.pow(vX,2)+b*vX+c*1;
   vX=vX.toFixed(2);
@@ -63,7 +75,25 @@ function results() {
   context.lineTo(w/2+vX*k, h+5);
   context.stroke();
   context.setLineDash([0]);
-   //$("#corres.point").text("Corresponding point is at ("+vX*2)")";
+  }
+  else{
+    $("#vertex").text("No vertex");
+    x=-c/b;
+    $("#solution1").text("X intercept is at "+x);
+    $("#solution2").text("");
+    $("#corres-point").text("No corresponding point");
+    $("#sim-line").text("No Symmetry line"); 
+    context.fillStyle="darkblue";
+    context.beginPath();
+    context.arc(w/2+x*k, h/2, 5, 0, 6.28);
+    context.fill(); 
+    $("#y-int").text("Y intercept is at (0,"+ c+")");
+    context.fillStyle = "darkblue";
+    context.beginPath();
+    context.arc(w/2, h/2-c*k, 5, 0, 6.28);
+    context.fill(); 
+  }
+     //$("#corres.point").text("Corresponding point is at ("+vX*2)")";
 }  // close results()
 
 
@@ -136,17 +166,38 @@ function graphQuad () {
 }
 
 function zoom (){
-  k=k+2;
+  k=k+3;
+  resetCanvas();
+}
+
+function zoomOut (){
+  k=k-3;
+  if(k<5){k=k+3;}
+  resetCanvas();
+}
+
+function resetCanvas (){
   init();
   graphQuad();
   results();
   QF();
 }
 
-function zoomOut (){
-  k=k-2;
-  init();
-  graphQuad();
-  results();
-  QF();
-}
+function doMouseMove(event) {
+    // always know where ther mouse is located
+  resetCanvas();
+  context.fillStyle="red";
+  mouseX = event.clientX-offsetX;
+  mouseY = event.clientY-offsetY;
+  pointX = (mouseX-w/2)/k;
+  pointY = a*Math.pow(pointX,2)+b*pointX+c*1;
+  pointX =  pointX.toFixed(2);
+  pointY =  pointY.toFixed(2);
+  //console.log(mouseX,mouseY, pointX, pointY, offsetY, offsetX);
+  context.beginPath();
+  context.arc(mouseX, h/2-pointY*k,5,0,2*Math.PI);
+  context.fill(); 
+  $("#point").text("Point on the curve: ("+pointX+","+pointY+")");
+}  // end doMouseMove
+
+
